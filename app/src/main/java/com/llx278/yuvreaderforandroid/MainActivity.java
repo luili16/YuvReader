@@ -2,22 +2,16 @@ package com.llx278.yuvreaderforandroid;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.opengl.GLSurfaceView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 
 import com.llx278.yuvreaderforandroid.util.MyGLUtils;
-import com.llx278.yuvreaderforandroid.util.YuvToRGB;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
         mView = findViewById(R.id.activity_main_gl_surface_view);
         if (MyGLUtils.detectOpenGLES30(this)) {
             mView.setEGLContextClientVersion(3);
-            /*Bitmap bitmap = getBitmap();
-            int width ;
-            int height;
+            Bitmap bitmap = getBitmap();
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
             ByteBuffer b = ByteBuffer.allocate(bitmap.getByteCount());
             bitmap.copyPixelsToBuffer(b);
-            b.position(0);*/
-            int width ;
+            b.position(0);
+            /*int width ;
             int height;
             width = 256;
             height = 256;
@@ -59,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             System.arraycopy(rawYuv, pointU, dstU, 0, pixels / 4);
             int srcStrideY = width;
             int srcStrideU = width / 2;
-            int srcStrideV = width / 2;
+            int srcStrideV = width / 2;*/
             ITexture texture;
             IRectangle rectangle;
             /*byte[] dstArgb = new byte[width * height * 4];
@@ -72,9 +66,12 @@ public class MainActivity extends AppCompatActivity {
             dst.put(dstArgb);
             dst.position(0);
             texture = new Texture(dst, width, height);*/
-            texture = new I420Texture(dstY,width,height,dstV,width/2,height/2,dstU,width/2,height/2);
-            rectangle = new I420Rectangle(this);
-            SceneRender sr = new SceneRender(texture, rectangle);
+            //texture = new I420Texture(dstY,width,height,dstV,width/2,height/2,dstU,width/2,height/2);
+            //rectangle = new I420Rectangle(this);
+            texture = new Texture(b, width, height);
+            rectangle = new Rectangle(this);
+            //SceneRender sr = new SceneRender(texture, rectangle);
+            BufferSceneRender sr = new BufferSceneRender(texture, rectangle,new Rectangle(this));
             mView.setRenderer(sr);
             mView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         } else {

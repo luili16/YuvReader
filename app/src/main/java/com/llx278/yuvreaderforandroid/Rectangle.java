@@ -77,9 +77,11 @@ public class Rectangle implements IRectangle {
 
     @Override
     public void draw(int[] texId, float[] projectMatrix, float[] mvMatrix) {
-        if (mVertexBuffer == null && mTexCoorBuffer == null) {
+        if (mVertexBuffer == null || mTexCoorBuffer == null) {
             return;
         }
+        mVertexBuffer.position(0);
+        mTexCoorBuffer.position(0);
         Matrix.setIdentityM(mMVPMatrix, 0);
         Matrix.setIdentityM(mMMatrix, 0);
         GLES30.glUseProgram(mProgram);
