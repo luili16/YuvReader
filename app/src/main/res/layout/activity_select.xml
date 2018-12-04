@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用opengl显示一张图片"
+        android:id="@+id/show_image"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用opengl直接显示yuv格式图片"
+        android:id="@+id/show_yuv_image"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用libYuv将yuv转为rgb并用opengl显示"
+        android:id="@+id/show_yuv_to_rgb"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="将纹理先写入framebuffer再显示"
+        android:id="@+id/show_frame_buffer_texture"
+        />
+
+
+</LinearLayout>

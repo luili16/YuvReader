@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class I420Rectangle implements IRectangle {
+public class YuvRectangle {
 
     private FloatBuffer mVertexBuffer;
     private FloatBuffer mTexCoorBuffer;
@@ -30,7 +30,9 @@ public class I420Rectangle implements IRectangle {
     // 具体物体的移动旋转矩阵
     private float[] mMMatrix = new float[16];
 
-    public I420Rectangle(Context context) {
+    private boolean isInit = false;
+
+    public YuvRectangle(Context context,float[] vertices, float[] textureCoordinate) {
 
         // 加载顶点着色器的脚本内容
         mVertexShader = ShaderUtil.readFromAssets("shader/yuv_texture/vertex.vert",
@@ -38,26 +40,7 @@ public class I420Rectangle implements IRectangle {
         // 加载片元着色器的脚本内容
         mFragmentShader = ShaderUtil.readFromAssets("shader/yuv_texture/fragment.frag",
                 context.getResources());
-    }
 
-    @Override
-    public void initShader() {
-        // 基于顶点着色器和片元着色器创建程序
-        mProgram = ShaderUtil.createProgram(mVertexShader, mFragmentShader);
-        // 获取程序顶点位置属性引用
-        maPositionHandler = GLES30.glGetAttribLocation(mProgram, "aPosition");
-        // 获取程序纹理坐标属性引用
-        maTexCoorHandler = GLES30.glGetAttribLocation(mProgram, "aTexCoor");
-        // 获取程序中总变换矩阵属性引用
-        muMVPMatrixHandler = GLES30.glGetUniformLocation(mProgram, "uMVPMatrix");
-
-        mTexYHandler = GLES30.glGetUniformLocation(mProgram, "tex_y");
-        mTexUHandler = GLES30.glGetUniformLocation(mProgram, "tex_u");
-        mTexVHandler = GLES30.glGetUniformLocation(mProgram, "tex_v");
-    }
-
-    @Override
-    public void onVerticesDecided(float[] vertices) {
         // 绘制方向逆时针，
         // 创建顶点坐标缓冲
         FloatBuffer vbb =
@@ -85,11 +68,26 @@ public class I420Rectangle implements IRectangle {
         mTexCoorBuffer = cbb;
     }
 
-    @Override
+    private void initShader() {
+        // 基于顶点着色器和片元着色器创建程序
+        mProgram = ShaderUtil.createProgram(mVertexShader, mFragmentShader);
+        // 获取程序顶点位置属性引用
+        maPositionHandler = GLES30.glGetAttribLocation(mProgram, "aPosition");
+        // 获取程序纹理坐标属性引用
+        maTexCoorHandler = GLES30.glGetAttribLocation(mProgram, "aTexCoor");
+        // 获取程序中总变换矩阵属性引用
+        muMVPMatrixHandler = GLES30.glGetUniformLocation(mProgram, "uMVPMatrix");
+
+        mTexYHandler = GLES30.glGetUniformLocation(mProgram, "tex_y");
+        mTexUHandler = GLES30.glGetUniformLocation(mProgram, "tex_u");
+        mTexVHandler = GLES30.glGetUniformLocation(mProgram, "tex_v");
+    }
+
     // 0 y 1 u 2 v
     public void draw(int texId[], float[] projectMatrix, float[] mvMatrix) {
-        if (mVertexBuffer == null && mTexCoorBuffer == null) {
-            return;
+        if (!isInit) {
+            initShader();
+            isInit = true;
         }
 
         Matrix.setIdentityM(mMVPMatrix, 0);
