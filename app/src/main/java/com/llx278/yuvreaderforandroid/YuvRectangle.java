@@ -51,19 +51,11 @@ public class YuvRectangle {
                         put(vertices);
         vbb.position(0);
         mVertexBuffer = vbb;
-        // 创建纹理坐标缓冲
-        // 方向逆时针，
-        float texCoor[] = new float[]{
-                0f, 1f,
-                1f, 1f,
-                0f, 0f,
-                1f, 0f
-        };
         FloatBuffer cbb =
                 ByteBuffer.
-                        allocateDirect(texCoor.length * 4).
+                        allocateDirect(textureCoordinate.length * 4).
                         order(ByteOrder.nativeOrder()).
-                        asFloatBuffer().put(texCoor);
+                        asFloatBuffer().put(textureCoordinate);
         cbb.position(0);
         mTexCoorBuffer = cbb;
     }
