@@ -1,6 +1,7 @@
 package com.llx278.yuvreaderforandroid;
 
 import android.content.Context;
+import android.graphics.SurfaceTexture;
 import android.opengl.GLES30;
 import android.opengl.Matrix;
 

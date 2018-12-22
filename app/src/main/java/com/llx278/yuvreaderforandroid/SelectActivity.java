@@ -25,5 +25,11 @@ public class SelectActivity extends AppCompatActivity {
         drawFrameBuffer.setOnClickListener(v->{
             startActivity(new Intent(SelectActivity.this,DrawFrameBufferActivity.class));
         });
+
+        Button preview = findViewById(R.id.show_camerea_preview);
+        preview.setOnClickListener(v -> {
+            startActivity(new Intent(SelectActivity.this,CameraPreviewActivity.class));
+        });
+
     }
 }

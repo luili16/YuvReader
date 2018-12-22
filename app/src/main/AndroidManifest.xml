@@ -22,5 +22,6 @@
         <activity android:name=".ShowYuvImageActivity" />
         <activity android:name=".ShowYuvImageToRGBActivity" />
         <activity android:name=".DrawFrameBufferActivity" />
+        <activity android:name=".CameraPreviewActivity" />
     </application>
 </manifest>
