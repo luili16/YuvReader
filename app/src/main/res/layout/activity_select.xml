@@ -9,35 +9,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="用opengl显示一张图片"
-        android:id="@+id/show_image"
+        android:error="@+error/show_image"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="用opengl直接显示yuv格式图片"
-        android:id="@+id/show_yuv_image"
+        android:error="@+error/show_yuv_image"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="用libYuv将yuv转为rgb并用opengl显示"
-        android:id="@+id/show_yuv_to_rgb"
+        android:error="@+error/show_yuv_to_rgb"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="将纹理先写入framebuffer再显示"
-        android:id="@+id/show_frame_buffer_texture"
+        android:error="@+error/show_frame_buffer_texture"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="用opengl es处理摄像头预览画面"
-        android:id="@+id/show_camerea_preview"
+        android:error="@+error/show_camerea_preview"
         />
 
 
